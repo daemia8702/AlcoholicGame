@@ -1,12 +1,9 @@
 package Testing;
 
-import java.io.BufferedWriter;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStreamWriter;
 
 import States.GameState;
 
+// this class is just for testing
 public class TestClass {
 	
 	private static GameState game = new GameState();
@@ -57,10 +54,10 @@ public class TestClass {
 	private static void testCases() {
 		int x = 0;
 		
-		while (x <= 100) {
+		while (x <= 500) {
 			game.update();
 			
-			System.out.println(game.getManager().getEntityList().get(0));
+			System.out.println(game.getManager().getPlayer().getPosX());
 			x++;
 		}
 		

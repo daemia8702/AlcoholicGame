@@ -22,6 +22,7 @@ public class Player extends Entity{
 	
 	/**
 	 * Method for the player movement
+	 * In this phase the player is moving back and forth on the screen. 
 	 */
 	public void move() {
 		double x = this.getPosX();
@@ -29,7 +30,7 @@ public class Player extends Entity{
 		x += xMove;
 		this.setPosX(x);
 		
-		if(x <= 0) {
+		if(x < 0) {
 			xMove = 3.5D;
 		}
 		if (x > Game.WIDTH - PLAYER_WIDTH) {

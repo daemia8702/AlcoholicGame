@@ -1,5 +1,10 @@
 package com.daemia.alcoholic.entities;
 
+/**
+ * The main abstract class for all the falling items in the game
+ * @author daemia
+ *
+ */
 public abstract class Items extends Entity{
 	
 	public static final int WIDTH = 10;

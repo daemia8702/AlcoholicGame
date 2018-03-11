@@ -1,5 +1,10 @@
 package com.daemia.alcoholic.entities;
 
+/**
+ * The base abstract class for all the entities (player and falling items) in the game.
+ * @author daemia
+ *
+ */
 public abstract class Entity {
 	
 	private double posX;

@@ -8,6 +8,13 @@ import com.daemia.alcoholic.entities.Whiskey;
 
 public class ItemFactory {
 	
+	/**
+	 * The method creates a random beer, whiskey or pill item
+	 * @param posX the x position of the created item on the screen
+	 * @param posY the y position of the created item on the screen
+	 * @param fallingItems the random enumeration, what tells which item should be created
+	 * @return the created item, based on the enumeration parameter. Default it returns a null.
+	 */
 	public Entity getItems(double posX, double posY, FallingItems fallingItems) {
 		
 		switch(fallingItems) {
