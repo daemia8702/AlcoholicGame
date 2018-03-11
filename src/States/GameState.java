@@ -13,11 +13,11 @@ public class GameState {
 	
 	private EntityManager manager;
 	private int notCollected;
-	
+	private int numOfItems; 
 	
 	public GameState() {
 		manager = new EntityManager();
-		manager.uploadList(25);
+		manager.uploadList(25);// 25 items just for testing
 		notCollected = 0;
 	}
 	
