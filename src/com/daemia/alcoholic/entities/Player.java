@@ -22,8 +22,11 @@ public class Player extends Entity{
 	
 	/**
 	 * Method for the player movement
-	 * In this phase the player is moving back and forth on the screen. 
+	 * This'll be the normal movement, if the player is sober, or not so drunk
+	 * In this phase the player is moving back and forth on the screen. (just for testing)
 	 */
+	
+	// Later this method can be deleted
 	public void move() {
 		double x = this.getPosX();
 		
@@ -35,6 +38,38 @@ public class Player extends Entity{
 		}
 		if (x > Game.WIDTH - PLAYER_WIDTH) {
 			xMove = -3.5D;
+		}
+	}
+	
+	/**
+	 * Movements if player getting drunk.
+	 * If player has a low alcohol level it can move like normal
+	 * On the first stage player gets slower
+	 * On the second stage palyer jumps positions
+	 * On the third stage player get's confused
+	 */
+	public void getDrunk() {
+		double x = this.getPosX();
+		double drinkMove = xMove;
+		if (alcoholLevel >= 0 && alcoholLevel <= 10) {
+			move();
+		}
+		else if (alcoholLevel > 10 && alcoholLevel <= 15) {
+			drinkMove = 1.5D;
+			x += drinkMove;
+			this.setPosX(x);
+		}
+		else if (alcoholLevel > 15 && alcoholLevel <= 20) {
+			drinkMove = 3.0D;
+			
+			x *= drinkMove;
+			this.setPosX(x);
+		}
+		else if (alcoholLevel > 20) {
+			/*
+			 	Switch the input: if left arrow is pressed player goes right,
+			 	if right arrow is pressed player goes left.
+			 */
 		}
 	}
 	

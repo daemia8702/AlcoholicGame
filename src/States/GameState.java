@@ -13,7 +13,7 @@ public class GameState {
 	
 	private EntityManager manager;
 	private int notCollected;
-	private int numOfItems; 
+	private int numOfItems;// this field will be used later to decide how many items to be on a level 
 	
 	public GameState() {
 		manager = new EntityManager();
@@ -92,7 +92,8 @@ public class GameState {
 	
 	/*
 	 Method that has to be implemented later:
-	 public void render(Graphics g)
+	 public void render(Graphics g){}
+	 public boolean detectCollision(){}
 	 */
 	
 	// for testing

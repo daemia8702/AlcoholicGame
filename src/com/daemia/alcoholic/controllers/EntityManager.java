@@ -75,7 +75,7 @@ public class EntityManager {
 		
 	}
 	
-	// This method is just temporary
+	// This method is just temporary. Later can be implemented, in the GameState class, with real collision detection
 	public boolean detectCollision() {
 		boolean isCollided = false;
 		
