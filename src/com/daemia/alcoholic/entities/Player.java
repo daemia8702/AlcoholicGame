@@ -4,20 +4,24 @@ import Testing.Game;
 
 public class Player extends Entity{
 
-	public static final int PLAYER_WIDTH = 100;
-	public static final int PLAYER_HEIGHT = 5;
-	public static final int PLAYER_Y_POSITION = 440;
+	public final static int PLAYER_WIDTH = 100;
+	public final static int PLAYER_HEIGHT = 5;
+	public final static double PLAYER_Y_POSITION = 440;
 	
+	private final double MODERATE_DRUNK = 5.5D;
+	private final double VERY_DRUNK = 6.5D;
+	private final double STARTING_SPEED = 3.5D;
+	
+	//private double playerSpeed;
 	private String playerName;
 	private int gameScore;
 	private int alcoholLevel;
-	private double xMove;
 	
-	public Player(double posX, double posY, int width, int height) {
-		super(posX, PLAYER_Y_POSITION, PLAYER_WIDTH, PLAYER_HEIGHT);
+	
+	public Player(double posX, double playerSpeed) {
+		super(posX, PLAYER_Y_POSITION, playerSpeed, PLAYER_WIDTH, PLAYER_HEIGHT);
 		gameScore = 0;
 		alcoholLevel = 0;
-		xMove = 3.5D;
 	}
 	
 	/**
@@ -27,17 +31,20 @@ public class Player extends Entity{
 	 */
 	
 	// Later this method can be deleted
-	public void move() {
-		double x = this.getPosX();
+	private void drunkMovement(double increaseSpeed) {
 		
-		x += xMove;
-		this.setPosX(x);
+		double xPosition = getPosX();
 		
-		if(x < 0) {
-			xMove = 3.5D;
+		
+		xPosition += getSpeed();
+		setPosX(xPosition);
+		
+		if (xPosition < 0) {
+			setSpeed(increaseSpeed);
 		}
-		if (x > Game.WIDTH - PLAYER_WIDTH) {
-			xMove = -3.5D;
+		
+		if (xPosition > Game.WIDTH - PLAYER_WIDTH) {
+			setSpeed(increaseSpeed * -1);
 		}
 	}
 	
@@ -45,25 +52,20 @@ public class Player extends Entity{
 	 * Movements if player getting drunk.
 	 * If player has a low alcohol level it can move like normal
 	 * On the first stage player gets slower
-	 * On the second stage palyer jumps positions
+	 * On the second stage player jumps positions
 	 * On the third stage player get's confused
 	 */
-	public void getDrunk() {
-		double x = this.getPosX();
-		double drinkMove = xMove;
-		if (alcoholLevel >= 0 && alcoholLevel <= 10) {
-			move();
+	
+	public void move() {
+		
+		if (alcoholLevel <= 10) {
+			drunkMovement(STARTING_SPEED);
 		}
 		else if (alcoholLevel > 10 && alcoholLevel <= 15) {
-			drinkMove = 1.5D;
-			x += drinkMove;
-			this.setPosX(x);
+			drunkMovement(MODERATE_DRUNK);
 		}
 		else if (alcoholLevel > 15 && alcoholLevel <= 20) {
-			drinkMove = 3.0D;
-			
-			x *= drinkMove;
-			this.setPosX(x);
+			drunkMovement(VERY_DRUNK);
 		}
 		else if (alcoholLevel > 20) {
 			/*
@@ -74,6 +76,7 @@ public class Player extends Entity{
 	}
 	
 	// Getters and setters for the fields
+	
 	public String getPlayerName() {
 		return playerName;
 	}
@@ -100,10 +103,9 @@ public class Player extends Entity{
 
 	@Override
 	public String toString() {
-		return "Player [playerName=" + playerName + ", gameScore=" + gameScore + ", alcoholLevel=" + alcoholLevel
-				+ ", xMove=" + xMove + ", getGameScore()=" + getGameScore() + ", getAlcoholLevel()=" + getAlcoholLevel()
-				+ ", getPosX()=" + getPosX() + "]\r\n";
+		return "Player [getGameScore()=" + getGameScore() + ", getAlcoholLevel()=" + getAlcoholLevel() + ", getPosX()="
+				+ getPosX() + ", getPosY()=" + getPosY() + ", getSpeed()=" + getSpeed() + "]" + "\r\n";
 	}
-	
+
 	
 }

@@ -16,21 +16,23 @@ import Testing.Game;
  */
 public class EntityManager {
 	
-	private List<Entity> entityList;
+	// FIELDS
+	private Entity player;
+	private List<Items> itemsList;
 	private ItemFactory factory;
 	private Random rand;
-	private Player player;
 
 	
+	//CONSTRUCTOR
 	public EntityManager() {
-		entityList = new LinkedList<>();
+		itemsList = new LinkedList<>();
 		rand = new Random();
 		factory = new ItemFactory();
-		player = new Player(rand.nextDouble() * (Game.WIDTH - Player.PLAYER_WIDTH), Player.PLAYER_Y_POSITION, Player.PLAYER_WIDTH, Player.PLAYER_HEIGHT);
 	}
 	
+	
 	/**
-	 * This method is used for selecting an item from the FallingItems enum
+	 * This helper method is used for selecting an item from the FallingItems enum
 	 * @return a random FallingItem from the itemsArray
 	 */
 	private FallingItems selectFallingItem() {
@@ -40,13 +42,23 @@ public class EntityManager {
 		
 		return itemsArray[randomIndex];
 	}
+	
 	/**
 	 * The method is creating an item with the help of the ItemFactory class
 	 * @return an item created by the ItemFactory class at a random x and y coordinate random place on the screen
 	 */
-	private Entity produceItem() {
-		return factory.getItems(rand.nextDouble() * (Game.WIDTH - Items.WIDTH) + 15 , rand.nextDouble() 
-				* (Game.HEIGHT - Items.HEIGHT)-520, selectFallingItem());
+	private Items produceItem() {
+		
+		Entity product = this.factory.getItems(30, -50, selectFallingItem());
+		
+		return (Items) product;
+	}
+	
+	/**
+	 * Creates the player at a random x coordinate on the screen
+	 */
+	public void createPlayer() {
+		player = this.factory.getPlayer(rand.nextInt(Game.WIDTH));
 	}
 	
 	/**
@@ -55,52 +67,24 @@ public class EntityManager {
 	 */
 	public void uploadList(int numsOfItems) {
 		for(int i = 0; i < numsOfItems; i++) {
-			entityList.add(produceItem());
-		}
-	}
-	
-	/**
-	 * Updating the falling items position, using the entity class move method. If the item is not collected and goes off the screen,
-	 * this method is replacing the falling item offscreen with a random negative posX value
-	 */
-	public void updateEntityPosition() {
-		for (int i = 0; i < entityList.size(); i++) {
-			entityList.get(i).move();
-			
-			if (entityList.get(i).getPosY() > Game.HEIGHT) {
-				entityList.get(i).setPosY(rand.nextDouble() *  Game.HEIGHT - Game.HEIGHT);
-				entityList.get(i).setPosX(rand.nextDouble() * (Game.WIDTH - Items.WIDTH) - 5);
-			}
+			itemsList.add(produceItem());
 		}
 		
-	}
-	
-	// This method is just temporary. Later can be implemented, in the GameState class, with real collision detection
-	public boolean detectCollision() {
-		boolean isCollided = false;
-		
-		for (int i = 0; i < entityList.size(); i++) {
-			if ((player.getPosX() == entityList.get(i).getPosX()) && (player.getPosY() == entityList.get(i).getPosY())) {
-				isCollided = true;
-			} 
-		}
-		return isCollided;
 	}
 	
 	/**
 	 * The method is used for adding a new entity to the entity list if an entity is collected by the player
 	 */
-	public void addEntity() {
-		entityList.add(produceItem());
+	public void addItem() {
+		itemsList.add(produceItem());
 	}
 	
-	public List<Entity> getEntityList() {
-		return entityList;
+	// Getters for the entityList and for the player
+	public List<Items> getItemsList() {
+		return itemsList;
 	}
 	
-	// for testing
 	public Player getPlayer() {
-		return player;
+		return (Player) player;
 	}
-	
 }

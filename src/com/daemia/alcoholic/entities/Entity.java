@@ -9,13 +9,22 @@ public abstract class Entity {
 	
 	private double posX;
 	private double posY;
+	private double speed;
 	private int width;
 	private int height;
-	private double speed;
 	
-	public Entity(double posX, double posY, int width, int height) {
+	public Entity(double posX, double posY) {
 		this.posX = posX;
 		this.posY = posY;
+	}
+	
+	public Entity(double posX, double posY, double speed) {
+		this(posX, posY);
+		this.speed = speed;
+	}
+	
+	public Entity(double posX, double posY, double speed, int width, int height) {
+		this(posX, posY, speed);
 		this.width = width;
 		this.height = height;
 	}
@@ -24,7 +33,7 @@ public abstract class Entity {
 	 * This abstract method is for the game entities movement
 	 */
 	public abstract void move();
-	
+
 	// Getters and setters for the fields
 	public double getPosX() {
 		return posX;
@@ -41,23 +50,7 @@ public abstract class Entity {
 	public void setPosY(double posY) {
 		this.posY = posY;
 	}
-
-	public int getWidth() {
-		return width;
-	}
-
-	public void setWidth(int width) {
-		this.width = width;
-	}
-
-	public int getHeight() {
-		return height;
-	}
-
-	public void setHeight(int height) {
-		this.height = height;
-	}
-
+	
 	public double getSpeed() {
 		return speed;
 	}
@@ -66,6 +59,12 @@ public abstract class Entity {
 		this.speed = speed;
 	}
 	
+	public int getWidth() {
+		return width;
+	}
 	
+	public int getHeight() {
+		return height;
+	}
 
 }
